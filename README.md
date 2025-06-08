@@ -61,11 +61,6 @@ issue番号 対応内容の概要　例） #4 新規プロジェクトの追加
 1. serviceはrepositoryを使用してデータ操作を行います。
 1. modelはデータの構造を定義します。
 
-# ネーミングルール
-## ブランチ名
-* issue番号-作業内容を簡略化したもの
-* 例) 999-get-without-change
-
 # フォーマッターについて
 - github ページ　https://github.com/google/google-java-format
 - https://github.com/google/google-java-format/releases  
@@ -81,10 +76,4 @@ issue番号 対応内容の概要　例） #4 新規プロジェクトの追加
   --add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
   --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
   ```
-
-
-
-# 運用ルール
-- 指摘対応について、1指摘対応につき1commitし、指摘のリプライにコミットハッシュを貼り付ける
-- 作業途中でも随時プッシュして、プルリクを作成しておく
 
