@@ -1,5 +1,6 @@
 -- 購入履歴管理テーブル
 create table purchase_history(
+id int not null primary key comment 'id',
 name char(255) not null comment 'ユーザー名',
 purchase_date DATE not null comment '購入日',
 product_name char(255) not null comment '購入商品',
@@ -8,12 +9,14 @@ quantity int  not null comment '数量'
 
 -- 在庫管理テーブル
 create table stock(
+id int not null primary key comment 'id',
 product_name char(255) not null comment '購入商品',
 quantity int  not null comment '数量'
 ) comment '在庫管理テーブル'
 
 -- アカウント管理テーブル
 create table account(
+id int not null primary key comment 'id',
 name char(255) not null comment 'ユーザー名',
 password int not null comment 'パスワード',
 authority int  not null comment '権限'
