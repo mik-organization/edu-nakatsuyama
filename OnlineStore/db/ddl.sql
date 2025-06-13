@@ -1,25 +1,20 @@
-CREATE DATABASE onliestore;
-
 -- 購入履歴管理テーブル
-create table onliestore.purchase_history(
-id int not null primary key comment 'id',
-name char(255) not null comment 'ユーザー名',
-purchase_date DATE not null comment '購入日',
-product_name char(255) not null comment '購入商品',
-quantity int  not null comment '数量'
-) comment '購入履歴管理テーブル'
+create table OnlineStote(
+Name char(255) not null,
+PurchaseDate DATE not null,
+ProductName char(255) not null,
+Quantity int  not null
+)
 
 -- 在庫管理テーブル
-create table onliestore.stock(
-id int not null primary key comment 'id',
-product_name char(255) not null comment '購入商品',
-quantity int  not null comment '数量'
-) comment '在庫管理テーブル'
+create table Stock(
+ProductName char(255) not null,
+Quantity int  not null
+)
 
 -- アカウント管理テーブル
-create table onliestore.account(
-id int not null primary key comment 'id',
-name char(255) not null comment 'ユーザー名',
-password int not null comment 'パスワード',
-authority int  not null comment '権限'
-) comment 'アカウント管理テーブル'
+create table Account(
+Name char(255) not null,
+Password int not null,
+Authority int  not null
+)
