@@ -9,7 +9,7 @@ create table onlinestore.purchase_history(
 id int not null primary key comment 'id',
 user_name char(255) not null comment 'ユーザー名',
 purchase_date DATE not null comment '購入日',
-product_name char(255) not null comment '購入商品',
+product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量'
 ) comment '購入履歴管理テーブル'
 
