@@ -25,5 +25,5 @@ create table onliestore.account(
 id int not null primary key comment 'ID',
 user_name char(255) not null comment 'ユーザー名',
 password int not null comment 'パスワード',
-authority int  not null comment '権限'
+account_types int  not null comment 'アカウントタイプ'
 ) comment 'アカウント管理テーブル'
