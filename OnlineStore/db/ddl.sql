@@ -6,7 +6,7 @@ DROP SCHEMA IF EXISTS onlinestore;
 
 -- 購入履歴管理テーブル
 create table onlinestore.purchase_history(
-id int not null primary key comment 'id',
+id int not null primary key comment 'ID',
 user_name char(255) not null comment 'ユーザー名',
 purchase_date DATE not null comment '購入日',
 product_name char(255) not null comment '商品名',
