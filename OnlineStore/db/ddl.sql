@@ -15,14 +15,14 @@ quantity int  not null comment '数量'
 
 -- 在庫管理テーブル
 create table onliestore.stock(
-id int not null primary key comment 'id',
+id int not null primary key comment 'ID',
 product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量'
 ) comment '在庫管理テーブル'
 
 -- アカウント管理テーブル
 create table onliestore.account(
-id int not null primary key comment 'id',
+id int not null primary key comment 'ID',
 user_name char(255) not null comment 'ユーザー名',
 password int not null comment 'パスワード',
 authority int  not null comment '権限'
