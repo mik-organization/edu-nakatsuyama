@@ -1,4 +1,8 @@
-CREATE DATABASE onliestore;
+-- スキーマの作成
+CREATE SCHEMA IF NOT EXISTS onlinestore;
+
+-- スキーマの削除
+DROP SCHEMA IF EXISTS onlinestore;
 
 -- 購入履歴管理テーブル
 create table onliestore.purchase_history(
