@@ -23,7 +23,7 @@ quantity int  not null comment '数量'
 -- アカウント管理テーブル
 create table onliestore.account(
 id int not null primary key comment 'id',
-name char(255) not null comment 'ユーザー名',
+user_name char(255) not null comment 'ユーザー名',
 password int not null comment 'パスワード',
 authority int  not null comment '権限'
 ) comment 'アカウント管理テーブル'
