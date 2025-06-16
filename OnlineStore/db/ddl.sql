@@ -16,7 +16,7 @@ quantity int  not null comment '数量'
 -- 在庫管理テーブル
 create table onliestore.stock(
 id int not null primary key comment 'id',
-product_name char(255) not null comment '購入商品',
+product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量'
 ) comment '在庫管理テーブル'
 
