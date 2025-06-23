@@ -26,7 +26,7 @@ create table onlinestore.stock(
 id int not null primary key comment 'ID',
 product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量'
-) comment '在庫管理テーブル';
+) comment '在庫';
 
 ALTER TABLE onlinestore.purchase_history ADD FOREIGN KEY (account_id) REFERENCES onlinestore.account(id) ON DELETE CASCADE;
 
