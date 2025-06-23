@@ -10,7 +10,7 @@ id int not null primary key comment 'ID',
 user_name char(255) not null comment 'ユーザー名',
 password int not null comment 'パスワード',
 account_type int  not null comment 'アカウントタイプ'
-) comment 'アカウント管理テーブル';
+) comment 'アカウント';
 
 -- 購入履歴管理テーブル
 create table onlinestore.purchase_history(
