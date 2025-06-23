@@ -19,8 +19,6 @@ purchase_date DATE not null comment '購入日',
 product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量',
 account_id int  not null comment 'アカウントID',
-foreign key (account_id) references onlinestore.account(id)
-  ON DELETE CASCADE
 ) comment '購入履歴管理テーブル';
 
 -- 在庫管理テーブル
@@ -29,3 +27,6 @@ id int not null primary key comment 'ID',
 product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量'
 ) comment '在庫管理テーブル';
+
+ALTER TABLE onlinestore.purchase_history ADD FOREIGN KEY (account_id) REFERENCES onlinestore.account(id) ON DELETE CASCADE;
+
