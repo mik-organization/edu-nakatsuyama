@@ -18,7 +18,7 @@ id int not null primary key comment 'ID',
 purchase_date DATE not null comment '購入日',
 product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量',
-account_id int  not null comment 'アカウントID',
+account_id int  not null comment 'アカウントID'
 ) comment '購入履歴管理テーブル';
 
 -- 在庫管理テーブル
