@@ -10,7 +10,7 @@ import com.example.demo.model.Account;
 import com.example.demo.service.AccountService;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/account")
 public class AccountController {
 
   @Autowired private AccountService accountService;
