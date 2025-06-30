@@ -3,8 +3,8 @@
  エンドポイント：http://localhost:8080/account
  登録内容：
 	{
-	  "id" : "1",
-	  "name" : "Kyo",
-	  "password" : "12345",
-	  "authority" : "1"
+	  "id" : 1,
+	  "userName" : "Kyo",
+	  "password" : 12345,
+	  "accountType" : 1
 	}
