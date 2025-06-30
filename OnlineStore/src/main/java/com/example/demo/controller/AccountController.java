@@ -13,22 +13,29 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.demo.model.Account;
 import com.example.demo.service.AccountService;
 
+/** アカウント操作用コントローラ */
 @RestController
 @RequestMapping("/account")
 public class AccountController {
 
   @Autowired private AccountService accountService;
 
+  /**
+   * アカウント登録API
+   *
+   * @param account アカウント情報
+   * @return 登録した結果
+   */
   @PostMapping
   public ResponseEntity<Account> registerAccount(@RequestBody Account account) {
-	  Account saved = accountService.register(account);
+    Account saved = accountService.register(account);
 
-	  URI location = ServletUriComponentsBuilder
-	    .fromCurrentRequest()
-	    .path("/{id}")
-	    .buildAndExpand(saved.getId())
-	    .toUri();
+    URI location =
+        ServletUriComponentsBuilder.fromCurrentRequest()
+            .path("/{id}")
+            .buildAndExpand(saved.getId())
+            .toUri();
 
-	  return ResponseEntity.created(location).body(saved);
+    return ResponseEntity.created(location).body(saved);
   }
 }

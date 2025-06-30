@@ -7,9 +7,9 @@ import jakarta.persistence.Table;
 
 import lombok.Data;
 
-
+/** アカウント情報を表すエンティティクラス */
 @Entity
-@Table(name="account")
+@Table(name = "account")
 @Data
 public class Account {
   @Id
