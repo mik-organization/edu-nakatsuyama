@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.model.Account;
 
-/** アカウントエンティティ */
+/** データアクセス操作 */
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {}
