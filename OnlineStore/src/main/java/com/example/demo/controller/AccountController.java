@@ -30,14 +30,14 @@ public class AccountController {
    */
   @PostMapping
   public ResponseEntity<Account> registerAccount(@Valid @RequestBody Account account) {
-    Account saved = accountService.register(account);
+    Account registeredAccount = accountService.register(account);
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(saved.getId())
+            .buildAndExpand(registeredAccount.getId())
             .toUri();
 
-    return ResponseEntity.created(location).body(saved);
+    return ResponseEntity.created(location).body(registeredAccount);
   }
 }
