@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.net.URI;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,7 @@ public class AccountController {
    * @return 登録した結果
    */
   @PostMapping
-  public ResponseEntity<Account> registerAccount(@RequestBody Account account) {
+  public ResponseEntity<Account> registerAccount(@Valid @RequestBody Account account) {
     Account saved = accountService.register(account);
 
     URI location =
@@ -38,4 +40,6 @@ public class AccountController {
 
     return ResponseEntity.created(location).body(saved);
   }
+  
+  
 }
