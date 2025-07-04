@@ -40,6 +40,4 @@ public class AccountController {
 
     return ResponseEntity.created(location).body(saved);
   }
-  
-  
 }
