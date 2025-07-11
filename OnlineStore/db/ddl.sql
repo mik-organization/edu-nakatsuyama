@@ -19,7 +19,7 @@ purchase_date DATE not null comment '購入日',
 product_name char(255) not null comment '商品名',
 quantity int  not null comment '数量',
 account_id int  not null comment 'アカウントID'
-) comment '購入履歴;
+) comment '購入履歴';
 
 -- 在庫管理テーブル
 create table onlinestore.stock(
