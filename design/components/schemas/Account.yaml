@@ -1,4 +1,3 @@
-openapi: 3.0.4
 type: object
 properties:
   id:

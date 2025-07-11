@@ -1,19 +1,21 @@
 openapi: 3.0.4
+info:
+  title: Account API
+  version: 1.0.0
 paths:
-  # paths オブジェクト
   /account:
-    post: # POST
+    post:
       tags: 
         - account
       summary: Create a new Account
       description: Create a new Account
       parameters: []
-      requestBody: # リクエストボディ
+      requestBody:
         description: account to create
         content:
           application/json:
-            schema: # POSTするオブジェクト
-              $ref: '#/components/schemas/Account'
+            schema:
+              $ref: './components/schemas/Account.yaml'
             example:
               id: 1
               userName: Kyo
@@ -22,4 +24,3 @@ paths:
       responses:
         '201':
           description: CREATED
-  
