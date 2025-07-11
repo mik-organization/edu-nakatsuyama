@@ -1,0 +1,24 @@
+paths:
+  # paths オブジェクト
+  /account:
+    post: # POST
+      tags: 
+        - account
+      summary: Create a new Account
+      description: Create a new Account
+      parameters: []
+      requestBody: # リクエストボディ
+        description: account to create
+        content:
+          application/json:
+            schema: # POSTするオブジェクト
+              $ref: '#/components/schemas/Account'
+            example:
+              id: 1
+              userName: Kyo
+              password: 12345
+              accountType: 2
+      responses:
+        '201':
+          description: CREATED
+  
