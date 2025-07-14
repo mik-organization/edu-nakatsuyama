@@ -27,6 +27,13 @@ paths:
       responses:
         '201':
           description: CREATED
+          content:
+            application/json:
+              example:
+                id: 1
+                userName: Kyo
+                password: 12345
+                accountType: 2
         '400':
           description: 入力値が不正です（バリデーションエラー）
           content:
