@@ -2,6 +2,9 @@ openapi: 3.0.4
 info:
   title: Account API
   version: 1.0.0
+servers:
+  - url: http://localhost:8080/account
+    description: ローカル開発用サーバー
 paths:
   /account:
     post:
