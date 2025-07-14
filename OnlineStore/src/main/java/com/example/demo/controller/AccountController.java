@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
-<<<<<<< HEAD
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
+
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,76 +16,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-=======
-import java.net.URI;
-
-import jakarta.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
->>>>>>> main
 
 import com.example.demo.model.Account;
 import com.example.demo.service.AccountService;
 
-<<<<<<< HEAD
-=======
 /** アカウント操作用コントローラ */
->>>>>>> main
 @RestController
 @RequestMapping("/account")
 public class AccountController {
 
   @Autowired private AccountService accountService;
 
-<<<<<<< HEAD
-  //登録
-  @PostMapping
-  public Account registerAccount(@RequestBody Account account) {
-    return accountService.register(account);
-  }
-
-  // 一覧取得
-  @GetMapping
-  public List<Account> getAllAccounts() {
-    return accountService.getAll();
-  }
-
-  // 詳細取得
-  @GetMapping("/{id}")
-  public ResponseEntity<Account> getAccount(@PathVariable Integer id) {
-    Account account = accountService.getById(id);
-    if (account == null) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(account);
-  }
-
-  // 更新
-  @PutMapping("/{id}")
-  public ResponseEntity<Account> updateAccount(
-      @PathVariable Integer id, @RequestBody Account updatedAccount) {
-    Account account = accountService.update(id, updatedAccount);
-    if (account == null) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.ok(account);
-  }
-
-  // 削除
-  @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteAccount(@PathVariable Integer id) {
-    boolean deleted = accountService.delete(id);
-    if (!deleted) {
-      return ResponseEntity.notFound().build();
-    }
-    return ResponseEntity.noContent().build();
-=======
   /**
    * アカウント登録API
    *
@@ -100,6 +45,57 @@ public class AccountController {
             .toUri();
 
     return ResponseEntity.created(location).body(registeredAccount);
->>>>>>> main
+  }
+
+  /**
+   * アカウント一覧取得API
+   *
+   * @return アカウントのリスト
+   */
+  @GetMapping
+  public List<Account> getAllAccounts() {
+    return accountService.findAll();
+  }
+
+  /**
+   * アカウント詳細取得API
+   *
+   * @param id 取得対象のアカウントID
+   * @return 指定IDのアカウント情報
+   */
+  @GetMapping("/{id}")
+  public ResponseEntity<Account> getAccountById(@PathVariable Integer id) {
+    Optional<Account> account = accountService.findById(id);
+    return account.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+  }
+
+  /**
+   * アカウント更新API
+   *
+   * @param id 更新対象のアカウントID
+   * @param updatedAccount 更新内容を含むアカウント情報
+   * @return 更新後のアカウント情報
+   */
+  @PutMapping("/{id}")
+  public ResponseEntity<Account> updateAccount(
+      @PathVariable Integer id, @Valid @RequestBody Account updatedAccount) {
+
+    Optional<Account> result = accountService.update(id, updatedAccount);
+    return result.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+  }
+
+  /**
+   * アカウント削除API
+   *
+   * @param id 削除対象のアカウントID
+   * @return 処理結果
+   */
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteAccount(@PathVariable Integer id) {
+    if (!accountService.existsById(id)) {
+      return ResponseEntity.notFound().build();
+    }
+    accountService.delete(id);
+    return ResponseEntity.noContent().build();
   }
 }

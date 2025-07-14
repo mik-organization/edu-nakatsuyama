@@ -4,14 +4,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-<<<<<<< HEAD
-
-import lombok.Data;
-
-
-@Entity
-@Table(name="account")
-=======
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -23,22 +15,10 @@ import lombok.Data;
 /** アカウント情報を表すエンティティクラス */
 @Entity
 @Table(name = "account")
->>>>>>> main
 @Data
 public class Account {
   @Id
   @Column(name = "id")
-<<<<<<< HEAD
-  private Integer id;
-
-  @Column(name = "user_name", nullable = false, length = 255)
-  private String userName;
-
-  @Column(name = "password", nullable = false)
-  private Integer password;
-
-  @Column(name = "account_type", nullable = false)
-=======
   @NotNull(message = "IDは必須です")
   private Integer id;
 
@@ -56,6 +36,5 @@ public class Account {
   @NotNull(message = "アカウント種別は必須です")
   @Min(value = 1, message = "アカウント種別は1か2の値を指定してください")
   @Max(value = 2, message = "アカウント種別は1か2の値を指定してください")
->>>>>>> main
   private Integer accountType;
 }

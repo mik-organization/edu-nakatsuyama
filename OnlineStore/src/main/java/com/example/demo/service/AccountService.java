@@ -1,59 +1,20 @@
 package com.example.demo.service;
 
-<<<<<<< HEAD
 import java.util.List;
 import java.util.Optional;
 
-=======
->>>>>>> main
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Account;
 import com.example.demo.repository.AccountRepository;
 
-<<<<<<< HEAD
-=======
 /** アカウントに関するビジネスロジックを提供するサービスクラス */
->>>>>>> main
 @Service
 public class AccountService {
 
   @Autowired private AccountRepository accountRepository;
 
-<<<<<<< HEAD
-  public Account register(Account account) {
-    return accountRepository.save(account);
-  }
-
-  public List<Account> getAll() {
-    return accountRepository.findAll();
-  }
-
-  public Account getById(Integer id) {
-    return accountRepository.findById(id).orElse(null);
-  }
-
-  public Account update(Integer id, Account updatedAccount) {
-    Optional<Account> existing = accountRepository.findById(id);
-    if (existing.isPresent()) {
-      Account account = existing.get();
-      account.setUserName(updatedAccount.getUserName());
-      account.setPassword(updatedAccount.getPassword());
-      account.setAccountType(updatedAccount.getAccountType());
-      return accountRepository.save(account);
-    }
-    return null;
-  }
-
-  public boolean delete(Integer id) {
-    if (!accountRepository.existsById(id)) {
-      return false;
-    }
-    accountRepository.deleteById(id);
-    return true;
-  }
-=======
   /**
    * アカウント情報を新規に登録
    *
@@ -63,5 +24,61 @@ public class AccountService {
   public Account register(Account account) {
     return accountRepository.save(account);
   }
->>>>>>> main
+
+  /**
+   * すべてのアカウント情報を取得
+   *
+   * @return アカウント情報のリスト
+   */
+  public List<Account> findAll() {
+    return accountRepository.findAll();
+  }
+
+  /**
+   * 指定されたIDのアカウント情報を取得
+   *
+   * @param id 取得対象のアカウントID
+   * @return 該当するアカウント情報
+   */
+  public Optional<Account> findById(Integer id) {
+    return accountRepository.findById(id);
+  }
+
+  /**
+   * 指定されたIDのアカウント情報を更新
+   *
+   * @param id 更新対象のアカウントID
+   * @param updatedAccount 更新内容を含むアカウント情報
+   * @return 更新後のアカウント情報
+   */
+  public Optional<Account> update(Integer id, Account updatedAccount) {
+    return accountRepository
+        .findById(id)
+        .map(
+            account -> {
+              account.setUserName(updatedAccount.getUserName());
+              account.setPassword(updatedAccount.getPassword());
+              account.setAccountType(updatedAccount.getAccountType());
+              return accountRepository.save(account);
+            });
+  }
+
+  /**
+   * 指定されたIDのアカウントが存在するか確認
+   *
+   * @param id 存在確認対象のアカウントID
+   * @return アカウントが存在すれば true、存在しなければ false
+   */
+  public boolean existsById(Integer id) {
+    return accountRepository.existsById(id);
+  }
+
+  /**
+   * 指定されたIDのアカウント情報を削除
+   *
+   * @param id 削除対象のアカウントID
+   */
+  public void delete(Integer id) {
+    accountRepository.deleteById(id);
+  }
 }
