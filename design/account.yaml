@@ -27,3 +27,23 @@ paths:
       responses:
         '201':
           description: CREATED
+        '400':
+          description: 入力値が不正です（バリデーションエラー）
+          content:
+            application/json:
+              example:
+                errors:
+                  - field: id
+                    message: IDは必須です
+                  - field: userName
+                    message: ユーザー名は必須です
+                  - field: userName
+                    message: ユーザー名は255文字以内で入力してください
+                  - field: password
+                    message: パスワードは必須です
+                  - field: password
+                    message: パスワードは最低5桁以上の整数である必要があります
+                  - field: accountType
+                    message: アカウント種別は必須です
+                  - field: accountType
+                    message: アカウント種別は1か2の値を指定してください
