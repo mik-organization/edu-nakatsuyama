@@ -26,7 +26,7 @@ paths:
               accountType: 2
       responses:
         '201':
-          description: CREATED
+          description: アカウントが正常に作成されました
           content:
             application/json:
               example:
@@ -35,7 +35,7 @@ paths:
                 password: 12345
                 accountType: 2
         '400':
-          description: 入力値が不正です（バリデーションエラー）
+          description: Bad Request - 入力値が不正です
           content:
             application/json:
               example:
