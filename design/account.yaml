@@ -1,0 +1,56 @@
+openapi: 3.0.4
+info:
+  title: Account API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: ローカル開発用サーバー
+paths:
+  /account:
+    post:
+      tags: 
+        - account
+      summary: Create a new Account
+      description: Create a new Account
+      parameters: []
+      requestBody:
+        description: account to create
+        content:
+          application/json:
+            schema:
+              $ref: './components/schemas/Account.yaml'
+            example:
+              id: 1
+              userName: Kyo
+              password: 12345
+              accountType: 2
+      responses:
+        '201':
+          description: アカウントが正常に作成されました
+          content:
+            application/json:
+              example:
+                id: 1
+                userName: Kyo
+                password: 12345
+                accountType: 2
+        '400':
+          description: Bad Request - 入力値が不正です
+          content:
+            application/json:
+              example:
+                errors:
+                  - field: id
+                    message: IDは必須です
+                  - field: userName
+                    message: ユーザー名は必須です
+                  - field: userName
+                    message: ユーザー名は255文字以内で入力してください
+                  - field: password
+                    message: パスワードは必須です
+                  - field: password
+                    message: パスワードは最低5桁以上の整数である必要があります
+                  - field: accountType
+                    message: アカウント種別は必須です
+                  - field: accountType
+                    message: アカウント種別は1か2の値を指定してください
