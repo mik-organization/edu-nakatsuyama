@@ -1,0 +1,143 @@
+openapi: 3.0.4
+info:
+  title: Account API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: ローカル開発用サーバー
+paths:
+  /account:
+    post:
+      tags: 
+        - account
+      summary: Create a new Account
+      description: Create a new Account
+      parameters: []
+      requestBody:
+        description: account to create
+        content:
+          application/json:
+            schema:
+              $ref: './components/schemas/Account.yaml'
+            example:
+              id: 1
+              userName: Kyo
+              password: 12345
+              accountType: 2
+      responses:
+        '201':
+          description: CREATED
+          content:
+            application/json:
+              example:
+                id: 1
+                userName: Kyo
+                password: 12345
+                accountType: 2
+        '400':
+          description: 入力値が不正です（バリデーションエラー）
+          content:
+            application/json:
+              example:
+                errors:
+                  - field: id
+                    message: IDは必須です
+                  - field: userName
+                    message: ユーザー名は必須です
+                  - field: userName
+                    message: ユーザー名は255文字以内で入力してください
+                  - field: password
+                    message: パスワードは必須です
+                  - field: password
+                    message: パスワードは最低5桁以上の整数である必要があります
+                  - field: accountType
+                    message: アカウント種別は必須です
+                  - field: accountType
+                    message: アカウント種別は1か2の値を指定してください
+    put:
+      tags:
+        - account
+      summary: Update an account
+      description: Update an account
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './components/schemas/Account.yaml'
+            example:
+              id: 1
+              userName: User
+              password: 12345
+              accountType: 1
+      responses:
+        '200':
+          description: UpdateSuccessful
+          content:
+            application/json:
+              schema:
+                $ref: './components/schemas/Account.yaml'
+              example:
+                id: 1
+                userName: User
+                password: 12345
+                accountType: 1
+    get:
+      tags:
+        - account
+      summary: Get all accounts
+      description: Get all accounts
+      responses:
+        '200':
+          description: GetAll
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components/schemas/Account.yaml'
+              example:
+                - id: 1
+                  userName: User
+                  password: 12345
+                  accountType: 1
+                - id: 2
+                  userName: Taro
+                  password: 12345
+                  accountType: 1
+
+  /account/{id}:
+    get:
+      tags:
+        - account
+      summary: Get account by ID
+      description: Get account by ID
+      parameters:
+        - name: id
+          in: path
+          description: userId
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: GetAccount
+          content:
+            application/json:
+              schema:
+                $ref: './components/schemas/Account.yaml'
+              example:
+                id: 1
+                userName: User
+                password: 12345
+                accountType: 1
+    delete:
+      tags:
+        - account
+      summary: Delete an account
+      description: Delete an account
+      parameters: []
+      responses:
+        '204':
+          description: Delete
