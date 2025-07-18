@@ -3,7 +3,7 @@ info:
   title: Account API
   version: 1.0.0
 servers:
-  - url: http://localhost:8080/account
+  - url: http://localhost:8080
     description: ローカル開発用サーバー
 paths:
   /account:
