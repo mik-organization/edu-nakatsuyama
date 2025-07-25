@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.demo.model.Account;
+import com.example.demo.model.AccountForPost;
+import com.example.demo.model.AccountForPut;
 import com.example.demo.service.AccountService;
 
 /** アカウント操作用コントローラ */
@@ -35,8 +37,9 @@ public class AccountController {
    * @return 登録した結果
    */
   @PostMapping
-  public ResponseEntity<Account> registerAccount(@Valid @RequestBody Account account) {
-    Account registeredAccount = accountService.register(account);
+  public ResponseEntity<AccountForPost> registerAccount(
+      @Valid @RequestBody AccountForPost account) {
+    AccountForPost registeredAccount = accountService.register(account);
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -78,8 +81,7 @@ public class AccountController {
    */
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateAccount(
-      @PathVariable Integer id, @Valid @RequestBody Account updatedAccount) {
-
+      @PathVariable Integer id, @Valid @RequestBody AccountForPut updatedAccount) {
     Optional<Account> result = accountService.update(id, updatedAccount);
     return result
         .map(account -> ResponseEntity.noContent().build())

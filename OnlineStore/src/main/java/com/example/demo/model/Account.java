@@ -2,7 +2,6 @@ package com.example.demo.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -12,16 +11,11 @@ import jakarta.validation.constraints.Size;
 
 import lombok.Data;
 
-/** アカウント情報を表すエンティティクラス */
+/** アカウントの共通フィールド */
 @Entity
 @Table(name = "account")
 @Data
-public class Account {
-  @Id
-  @Column(name = "id")
-  @NotNull(message = "IDは必須です")
-  private Integer id;
-
+public abstract class Account {
   @Column(name = "user_name", nullable = false, length = 255)
   @NotEmpty(message = "ユーザー名は必須です")
   @Size(max = 255, message = "ユーザー名は255文字以内で入力してください")
