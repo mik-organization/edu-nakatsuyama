@@ -86,8 +86,8 @@ public class AccountController {
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateAccount(
       @PathVariable Integer id, @Valid @RequestBody AccountForPutDto updatedAccount) {
-    Optional<Account> result = accountService.update(id, updatedAccount);
-    return result
+    Optional<Account> updateAccount = accountService.update(id, updatedAccount);
+    return updateAccount
         .map(account -> ResponseEntity.noContent().build())
         .orElse(ResponseEntity.notFound().build());
   }
