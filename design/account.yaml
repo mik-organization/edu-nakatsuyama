@@ -107,7 +107,13 @@ paths:
         - account
       summary: Update an account
       description: Update an account
-      parameters: []
+      parameters:
+        - name: id
+          in: path
+          description: userId
+          required: true
+          schema:
+            type: integer
       requestBody:
         required: true
         content:
@@ -153,7 +159,13 @@ paths:
         - account
       summary: Delete an account
       description: Delete an account
-      parameters: []
+      parameters:
+        - name: id
+          in: path
+          description: userId
+          required: true
+          schema:
+            type: integer
       responses:
         '204':
           description: アカウントが正常に削除されました
