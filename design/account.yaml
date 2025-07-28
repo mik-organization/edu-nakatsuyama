@@ -32,7 +32,7 @@ paths:
               example:
                 id: 1
                 userName: Kyo
-                password: 12345
+                password: "*****"
                 accountType: 2
         '400':
           description: Bad Request - 入力値が不正です
@@ -71,11 +71,11 @@ paths:
               example:
                 - id: 1
                   userName: User
-                  password: 12345
+                  password: "*****"
                   accountType: 1
                 - id: 2
                   userName: Taro
-                  password: 12345
+                  password: "*****"
                   accountType: 1
   /account/{id}:
     get:
@@ -100,7 +100,7 @@ paths:
               example:
                 id: 1
                 userName: User
-                password: 12345
+                password: "*****"
                 accountType: 1
     put:
       tags:
@@ -128,7 +128,7 @@ paths:
               example:
                 id: 1
                 userName: User
-                password: 12345
+                password: "*****"
                 accountType: 1
         '400':
           description: Bad Request - 入力値が不正です

@@ -60,7 +60,7 @@ public class AccountController {
    * @return アカウントのリスト
    */
   @GetMapping
-  public List<Account> getAllAccounts() {
+  public List<AccountDto> getAllAccounts() {
     return accountService.findAll();
   }
 
@@ -71,8 +71,8 @@ public class AccountController {
    * @return 指定IDのアカウント情報
    */
   @GetMapping("/{id}")
-  public ResponseEntity<Account> getAccountById(@Valid @PathVariable Integer id) {
-    Optional<Account> account = accountService.findById(id);
+  public ResponseEntity<AccountDto> getAccountById(@Valid @PathVariable Integer id) {
+    Optional<AccountDto> account = accountService.findById(id);
     return account.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
   }
 

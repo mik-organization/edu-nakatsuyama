@@ -2,10 +2,12 @@ package com.example.demo.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.dto.AccountDto;
 import com.example.demo.model.dto.AccountForPostDto;
 import com.example.demo.model.dto.AccountForPutDto;
 import com.example.demo.model.entity.Account;
@@ -38,8 +40,8 @@ public class AccountService {
    *
    * @return アカウント情報のリスト
    */
-  public List<Account> findAll() {
-    return accountRepository.findAll();
+  public List<AccountDto> findAll() {
+    return accountRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
   }
 
   /**
@@ -48,8 +50,22 @@ public class AccountService {
    * @param id 取得対象のアカウントID
    * @return 該当するアカウント情報
    */
-  public Optional<Account> findById(Integer id) {
-    return accountRepository.findById(id);
+  public Optional<AccountDto> findById(Integer id) {
+    return accountRepository.findById(id).map(this::toDto);
+  }
+
+  /**
+   * Entity → DTO への変換メソッド
+   *
+   * @param account
+   * @return DTO
+   */
+  private AccountDto toDto(Account account) {
+    AccountDto dto = new AccountDto();
+    dto.setId(account.getId());
+    dto.setUserName(account.getUserName());
+    dto.setAccountType(account.getAccountType());
+    return dto;
   }
 
   /**
