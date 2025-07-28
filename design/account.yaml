@@ -115,7 +115,6 @@ paths:
             schema:
               $ref: './components/schemas/Account.yaml'
             example:
-              id: 1
               userName: User
               password: 12345
               accountType: 1
@@ -137,8 +136,6 @@ paths:
             application/json:
               example:
                 errors:
-                  - field: id
-                    message: IDは必須です
                   - field: userName
                     message: ユーザー名は必須です
                   - field: userName
