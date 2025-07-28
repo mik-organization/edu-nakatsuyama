@@ -75,7 +75,7 @@ public class AccountService {
    * @param updatedAccount 更新内容を含むアカウント情報
    * @return 更新後のアカウント情報
    */
-  public Optional<Account> update(Integer id, AccountForPutDto updatedAccount) {
+  public Optional<AccountDto> update(Integer id, AccountForPutDto updatedAccount) {
     return accountRepository
         .findById(id)
         .map(
@@ -83,7 +83,8 @@ public class AccountService {
               account.setUserName(updatedAccount.getUserName());
               account.setPassword(updatedAccount.getPassword());
               account.setAccountType(updatedAccount.getAccountType());
-              return accountRepository.save(account);
+              Account savedAccount = accountRepository.save(account);
+              return toDto(savedAccount);
             });
   }
 

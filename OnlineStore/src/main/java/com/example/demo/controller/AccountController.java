@@ -84,11 +84,11 @@ public class AccountController {
    * @return 更新後のアカウント情報
    */
   @PutMapping("/{id}")
-  public ResponseEntity<Object> updateAccount(
+  public ResponseEntity<AccountDto> updateAccount(
       @PathVariable Integer id, @Valid @RequestBody AccountForPutDto updatedAccount) {
-    Optional<Account> updateAccount = accountService.update(id, updatedAccount);
+    Optional<AccountDto> updateAccount = accountService.update(id, updatedAccount);
     return updateAccount
-        .map(account -> ResponseEntity.noContent().build())
+        .map(account -> ResponseEntity.ok(account))
         .orElse(ResponseEntity.notFound().build());
   }
 
