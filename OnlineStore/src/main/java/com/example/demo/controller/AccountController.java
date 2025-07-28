@@ -18,9 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.demo.model.Account;
-import com.example.demo.model.AccountForPost;
-import com.example.demo.model.AccountForPut;
+import com.example.demo.model.dto.AccountDto;
+import com.example.demo.model.dto.AccountForPostDto;
+import com.example.demo.model.dto.AccountForPutDto;
+import com.example.demo.model.entity.Account;
 import com.example.demo.service.AccountService;
 
 /** アカウント操作用コントローラ */
@@ -37,9 +38,12 @@ public class AccountController {
    * @return 登録した結果
    */
   @PostMapping
-  public ResponseEntity<AccountForPost> registerAccount(
-      @Valid @RequestBody AccountForPost account) {
-    AccountForPost registeredAccount = accountService.register(account);
+  public ResponseEntity<AccountDto> registerAccount(@Valid @RequestBody AccountForPostDto dto) {
+    Account registeredAccount = accountService.register(dto);
+    AccountDto account = new AccountDto();
+    account.setId(registeredAccount.getId());
+    account.setUserName(registeredAccount.getUserName());
+    account.setAccountType(registeredAccount.getAccountType());
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -47,7 +51,7 @@ public class AccountController {
             .buildAndExpand(registeredAccount.getId())
             .toUri();
 
-    return ResponseEntity.created(location).body(registeredAccount);
+    return ResponseEntity.created(location).body(account);
   }
 
   /**
@@ -81,7 +85,7 @@ public class AccountController {
    */
   @PutMapping("/{id}")
   public ResponseEntity<Object> updateAccount(
-      @PathVariable Integer id, @Valid @RequestBody AccountForPut updatedAccount) {
+      @PathVariable Integer id, @Valid @RequestBody AccountForPutDto updatedAccount) {
     Optional<Account> result = accountService.update(id, updatedAccount);
     return result
         .map(account -> ResponseEntity.noContent().build())

@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Account;
-import com.example.demo.model.AccountForPost;
-import com.example.demo.model.AccountForPut;
+import com.example.demo.model.dto.AccountForPostDto;
+import com.example.demo.model.dto.AccountForPutDto;
+import com.example.demo.model.entity.Account;
 import com.example.demo.repository.AccountRepository;
 
 /** アカウントに関するビジネスロジックを提供するサービスクラス */
@@ -23,12 +23,12 @@ public class AccountService {
    * @param account 登録するアカウント情報
    * @return 登録されたアカウント情報
    */
-  public AccountForPost register(AccountForPost account) {
-    AccountForPost accountRequest = new AccountForPost();
-    accountRequest.setId(account.getId());
-    accountRequest.setUserName(account.getUserName());
-    accountRequest.setPassword(account.getPassword());
-    accountRequest.setAccountType(account.getAccountType());
+  public Account register(AccountForPostDto dto) {
+    Account accountRequest = new Account();
+    accountRequest.setId(dto.getId());
+    accountRequest.setUserName(dto.getUserName());
+    accountRequest.setPassword(dto.getPassword());
+    accountRequest.setAccountType(dto.getAccountType());
 
     return accountRepository.save(accountRequest);
   }
@@ -59,7 +59,7 @@ public class AccountService {
    * @param updatedAccount 更新内容を含むアカウント情報
    * @return 更新後のアカウント情報
    */
-  public Optional<Account> update(Integer id, AccountForPut updatedAccount) {
+  public Optional<Account> update(Integer id, AccountForPutDto updatedAccount) {
     return accountRepository
         .findById(id)
         .map(
