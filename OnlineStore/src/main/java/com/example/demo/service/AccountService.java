@@ -64,8 +64,7 @@ public class AccountService {
    */
   private AccountResponseDto toDto(AccountEntity account) {
     AccountResponseDto dto = new AccountResponseDto();
-    BeanUtils.copyProperties(account, dto);
-    dto.setPassword("*****");
+    BeanUtils.copyProperties(account, dto, "password");
     return dto;
   }
 

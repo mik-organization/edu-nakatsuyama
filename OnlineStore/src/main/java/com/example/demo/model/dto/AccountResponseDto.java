@@ -1,12 +1,14 @@
 package com.example.demo.model.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 /** アカウントの共通フィールド */
-@Data
+@ToString
 public class AccountResponseDto {
-  private Integer id;
-  private String userName;
-  private String password = "*****";
-  private Integer accountType;
+  @Getter @Setter private Integer id;
+  @Getter @Setter private String userName;
+  @Getter private String password = "*****";
+  @Getter @Setter private Integer accountType;
 }
