@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.demo.model.dto.AccountDto;
-import com.example.demo.model.dto.AccountForPostDto;
-import com.example.demo.model.dto.AccountForPutDto;
+import com.example.demo.model.dto.AccountRequestPostDto;
+import com.example.demo.model.dto.AccountRequestPutDto;
+import com.example.demo.model.dto.AccountResponseDto;
 import com.example.demo.model.entity.Account;
 import com.example.demo.service.AccountService;
 
@@ -38,9 +38,10 @@ public class AccountController {
    * @return 登録した結果
    */
   @PostMapping
-  public ResponseEntity<AccountDto> registerAccount(@Valid @RequestBody AccountForPostDto dto) {
+  public ResponseEntity<AccountResponseDto> registerAccount(
+      @Valid @RequestBody AccountRequestPostDto dto) {
     Account registeredAccount = accountService.register(dto);
-    AccountDto account = new AccountDto();
+    AccountResponseDto account = new AccountResponseDto();
     account.setId(registeredAccount.getId());
     account.setUserName(registeredAccount.getUserName());
     account.setAccountType(registeredAccount.getAccountType());
@@ -60,7 +61,7 @@ public class AccountController {
    * @return アカウントのリスト
    */
   @GetMapping
-  public List<AccountDto> getAllAccounts() {
+  public List<AccountResponseDto> getAllAccounts() {
     return accountService.findAll();
   }
 
@@ -71,8 +72,8 @@ public class AccountController {
    * @return 指定IDのアカウント情報
    */
   @GetMapping("/{id}")
-  public ResponseEntity<AccountDto> getAccountById(@Valid @PathVariable Integer id) {
-    Optional<AccountDto> account = accountService.findById(id);
+  public ResponseEntity<AccountResponseDto> getAccountById(@Valid @PathVariable Integer id) {
+    Optional<AccountResponseDto> account = accountService.findById(id);
     return account.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
   }
 
@@ -84,9 +85,9 @@ public class AccountController {
    * @return 更新後のアカウント情報
    */
   @PutMapping("/{id}")
-  public ResponseEntity<AccountDto> updateAccount(
-      @PathVariable Integer id, @Valid @RequestBody AccountForPutDto updatedAccount) {
-    Optional<AccountDto> updateAccount = accountService.update(id, updatedAccount);
+  public ResponseEntity<AccountResponseDto> updateAccount(
+      @PathVariable Integer id, @Valid @RequestBody AccountRequestPutDto updatedAccount) {
+    Optional<AccountResponseDto> updateAccount = accountService.update(id, updatedAccount);
     return updateAccount
         .map(account -> ResponseEntity.ok(account))
         .orElse(ResponseEntity.notFound().build());

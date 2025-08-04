@@ -4,7 +4,7 @@ import lombok.Data;
 
 /** アカウントの共通フィールド */
 @Data
-public class AccountDto {
+public class AccountResponseDto {
   private Integer id;
   private String userName;
   private String password = "*****";

@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.dto.AccountDto;
-import com.example.demo.model.dto.AccountForPostDto;
-import com.example.demo.model.dto.AccountForPutDto;
+import com.example.demo.model.dto.AccountRequestPostDto;
+import com.example.demo.model.dto.AccountRequestPutDto;
+import com.example.demo.model.dto.AccountResponseDto;
 import com.example.demo.model.entity.Account;
 import com.example.demo.repository.AccountRepository;
 
@@ -25,7 +25,7 @@ public class AccountService {
    * @param account 登録するアカウント情報
    * @return 登録されたアカウント情報
    */
-  public Account register(AccountForPostDto dto) {
+  public Account register(AccountRequestPostDto dto) {
     Account accountRequest = new Account();
     accountRequest.setId(dto.getId());
     accountRequest.setUserName(dto.getUserName());
@@ -40,7 +40,7 @@ public class AccountService {
    *
    * @return アカウント情報のリスト
    */
-  public List<AccountDto> findAll() {
+  public List<AccountResponseDto> findAll() {
     return accountRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
   }
 
@@ -50,7 +50,7 @@ public class AccountService {
    * @param id 取得対象のアカウントID
    * @return 該当するアカウント情報
    */
-  public Optional<AccountDto> findById(Integer id) {
+  public Optional<AccountResponseDto> findById(Integer id) {
     return accountRepository.findById(id).map(this::toDto);
   }
 
@@ -60,8 +60,8 @@ public class AccountService {
    * @param account
    * @return DTO
    */
-  private AccountDto toDto(Account account) {
-    AccountDto dto = new AccountDto();
+  private AccountResponseDto toDto(Account account) {
+    AccountResponseDto dto = new AccountResponseDto();
     dto.setId(account.getId());
     dto.setUserName(account.getUserName());
     dto.setAccountType(account.getAccountType());
@@ -75,7 +75,7 @@ public class AccountService {
    * @param updatedAccount 更新内容を含むアカウント情報
    * @return 更新後のアカウント情報
    */
-  public Optional<AccountDto> update(Integer id, AccountForPutDto updatedAccount) {
+  public Optional<AccountResponseDto> update(Integer id, AccountRequestPutDto updatedAccount) {
     return accountRepository
         .findById(id)
         .map(

@@ -8,9 +8,12 @@ import jakarta.validation.constraints.Size;
 
 import lombok.Data;
 
-/** アカウント更新用 */
+/** アカウント作成用 */
 @Data
-public class AccountForPutDto {
+public class AccountRequestPostDto {
+  @NotNull(message = "IDは必須です")
+  private Integer id;
+
   @NotEmpty(message = "ユーザー名は必須です")
   @Size(max = 255, message = "ユーザー名は255文字以内で入力してください")
   private String userName;
