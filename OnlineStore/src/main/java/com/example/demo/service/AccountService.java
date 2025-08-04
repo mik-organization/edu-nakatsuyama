@@ -62,7 +62,7 @@ public class AccountService {
    * @param account
    * @return DTO
    */
-  private AccountResponseDto toDto(AccountEntity account) {
+  public AccountResponseDto toDto(AccountEntity account) {
     AccountResponseDto dto = new AccountResponseDto();
     BeanUtils.copyProperties(account, dto, "password");
     return dto;
