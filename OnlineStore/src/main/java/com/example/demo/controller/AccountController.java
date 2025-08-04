@@ -67,7 +67,7 @@ public class AccountController {
    * @return 指定IDのアカウント情報
    */
   @GetMapping("/{id}")
-  public ResponseEntity<AccountResponseDto> getAccountById(@Valid @PathVariable Integer id) {
+  public ResponseEntity<AccountResponseDto> getAccountById(@PathVariable Integer id) {
     Optional<AccountResponseDto> account = accountService.findById(id);
     return account.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
   }
@@ -95,7 +95,7 @@ public class AccountController {
    * @return 処理結果
    */
   @DeleteMapping("/{id}")
-  public ResponseEntity<Void> deleteAccount(@Valid @PathVariable Integer id) {
+  public ResponseEntity<Void> deleteAccount(@PathVariable Integer id) {
     if (!accountService.existsById(id)) {
       return ResponseEntity.notFound().build();
     }
