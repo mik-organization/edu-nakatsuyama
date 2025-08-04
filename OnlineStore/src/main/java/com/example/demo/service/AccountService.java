@@ -63,6 +63,7 @@ public class AccountService {
    * @return DTO
    */
   public AccountResponseDto toDto(AccountEntity account) {
+    // TODO 別途Mapperクラスを検討する
     AccountResponseDto dto = new AccountResponseDto();
     BeanUtils.copyProperties(account, dto, "password");
     return dto;
