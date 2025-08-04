@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.demo.model.dto.AccountRequestPostDto;
 import com.example.demo.model.dto.AccountRequestPutDto;
 import com.example.demo.model.dto.AccountResponseDto;
-import com.example.demo.model.entity.Account;
+import com.example.demo.model.entity.AccountEntity;
 import com.example.demo.service.AccountService;
 
 /** アカウント操作用コントローラ */
@@ -40,7 +40,7 @@ public class AccountController {
   @PostMapping
   public ResponseEntity<AccountResponseDto> registerAccount(
       @Valid @RequestBody AccountRequestPostDto dto) {
-    Account registeredAccount = accountService.register(dto);
+    AccountEntity registeredAccount = accountService.register(dto);
     AccountResponseDto account = new AccountResponseDto();
     account.setId(registeredAccount.getId());
     account.setUserName(registeredAccount.getUserName());

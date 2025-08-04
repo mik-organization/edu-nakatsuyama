@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.dto.AccountRequestPostDto;
 import com.example.demo.model.dto.AccountRequestPutDto;
 import com.example.demo.model.dto.AccountResponseDto;
-import com.example.demo.model.entity.Account;
+import com.example.demo.model.entity.AccountEntity;
 import com.example.demo.repository.AccountRepository;
 
 /** アカウントに関するビジネスロジックを提供するサービスクラス */
@@ -25,8 +25,8 @@ public class AccountService {
    * @param account 登録するアカウント情報
    * @return 登録されたアカウント情報
    */
-  public Account register(AccountRequestPostDto dto) {
-    Account accountRequest = new Account();
+  public AccountEntity register(AccountRequestPostDto dto) {
+    AccountEntity accountRequest = new AccountEntity();
     accountRequest.setId(dto.getId());
     accountRequest.setUserName(dto.getUserName());
     accountRequest.setPassword(dto.getPassword());
@@ -60,7 +60,7 @@ public class AccountService {
    * @param account
    * @return DTO
    */
-  private AccountResponseDto toDto(Account account) {
+  private AccountResponseDto toDto(AccountEntity account) {
     AccountResponseDto dto = new AccountResponseDto();
     dto.setId(account.getId());
     dto.setUserName(account.getUserName());
@@ -83,7 +83,7 @@ public class AccountService {
               account.setUserName(updatedAccount.getUserName());
               account.setPassword(updatedAccount.getPassword());
               account.setAccountType(updatedAccount.getAccountType());
-              Account savedAccount = accountRepository.save(account);
+              AccountEntity savedAccount = accountRepository.save(account);
               return toDto(savedAccount);
             });
   }
