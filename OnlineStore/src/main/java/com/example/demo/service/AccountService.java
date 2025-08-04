@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +26,15 @@ public class AccountService {
    * @param account 登録するアカウント情報
    * @return 登録されたアカウント情報
    */
-  public AccountEntity register(AccountRequestPostDto dto) {
+  public AccountResponseDto register(AccountRequestPostDto dto) {
     AccountEntity accountRequest = new AccountEntity();
     accountRequest.setId(dto.getId());
     accountRequest.setUserName(dto.getUserName());
     accountRequest.setPassword(dto.getPassword());
     accountRequest.setAccountType(dto.getAccountType());
 
-    return accountRepository.save(accountRequest);
+    AccountEntity saved = accountRepository.save(accountRequest);
+    return toDto(saved);
   }
 
   /**
@@ -62,9 +64,8 @@ public class AccountService {
    */
   private AccountResponseDto toDto(AccountEntity account) {
     AccountResponseDto dto = new AccountResponseDto();
-    dto.setId(account.getId());
-    dto.setUserName(account.getUserName());
-    dto.setAccountType(account.getAccountType());
+    BeanUtils.copyProperties(account, dto);
+    dto.setPassword("*****");
     return dto;
   }
 

@@ -21,7 +21,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.demo.model.dto.AccountRequestPostDto;
 import com.example.demo.model.dto.AccountRequestPutDto;
 import com.example.demo.model.dto.AccountResponseDto;
-import com.example.demo.model.entity.AccountEntity;
 import com.example.demo.service.AccountService;
 
 /** アカウント操作用コントローラ */
@@ -40,11 +39,7 @@ public class AccountController {
   @PostMapping
   public ResponseEntity<AccountResponseDto> registerAccount(
       @Valid @RequestBody AccountRequestPostDto dto) {
-    AccountEntity registeredAccount = accountService.register(dto);
-    AccountResponseDto account = new AccountResponseDto();
-    account.setId(registeredAccount.getId());
-    account.setUserName(registeredAccount.getUserName());
-    account.setAccountType(registeredAccount.getAccountType());
+    AccountResponseDto registeredAccount = accountService.register(dto);
 
     URI location =
         ServletUriComponentsBuilder.fromCurrentRequest()
@@ -52,7 +47,7 @@ public class AccountController {
             .buildAndExpand(registeredAccount.getId())
             .toUri();
 
-    return ResponseEntity.created(location).body(account);
+    return ResponseEntity.created(location).body(registeredAccount);
   }
 
   /**
