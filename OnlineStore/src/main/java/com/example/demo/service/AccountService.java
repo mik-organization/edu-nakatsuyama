@@ -28,11 +28,7 @@ public class AccountService {
    */
   public AccountResponseDto register(AccountRequestPostDto dto) {
     AccountEntity accountRequest = new AccountEntity();
-    accountRequest.setId(dto.getId());
-    accountRequest.setUserName(dto.getUserName());
-    accountRequest.setPassword(dto.getPassword());
-    accountRequest.setAccountType(dto.getAccountType());
-
+    BeanUtils.copyProperties(dto, accountRequest);
     AccountEntity saved = accountRepository.save(accountRequest);
     return toDto(saved);
   }
@@ -81,9 +77,7 @@ public class AccountService {
         .findById(id)
         .map(
             account -> {
-              account.setUserName(updatedAccount.getUserName());
-              account.setPassword(updatedAccount.getPassword());
-              account.setAccountType(updatedAccount.getAccountType());
+              BeanUtils.copyProperties(updatedAccount, account);
               AccountEntity savedAccount = accountRepository.save(account);
               return toDto(savedAccount);
             });
