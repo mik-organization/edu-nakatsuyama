@@ -11,10 +11,10 @@ paths:
       tags: 
         - account
       summary: Create a new Account
-      description: Create a new Account
+      description: 新しいアカウントを作成します
       parameters: []
       requestBody:
-        description: account to create
+        description: 新規に作成するアカウントの詳細情報
         content:
           application/json:
             schema:
@@ -32,7 +32,7 @@ paths:
               example:
                 id: 1
                 userName: Kyo
-                password: 12345
+                password: "*****"
                 accountType: 2
         '400':
           description: Bad Request - 入力値が不正です
@@ -54,3 +54,118 @@ paths:
                     message: アカウント種別は必須です
                   - field: accountType
                     message: アカウント種別は1か2の値を指定してください
+    get:
+      tags:
+        - account
+      summary: Get all accounts
+      description: 登録されている全アカウント情報を取得します
+      responses:
+        '200':
+          description: 全アカウントを取得しました
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './components/schemas/Account.yaml'
+              example:
+                - id: 1
+                  userName: User
+                  password: "*****"
+                  accountType: 1
+                - id: 2
+                  userName: Taro
+                  password: "*****"
+                  accountType: 1
+  /account/{id}:
+    get:
+      tags:
+        - account
+      summary: Get account by ID
+      description: 指定されたIDに該当するアカウント情報を取得します
+      parameters:
+        - name: id
+          in: path
+          description: 対象のアカウントID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 対象のアカウントを取得しました
+          content:
+            application/json:
+              schema:
+                $ref: './components/schemas/Account.yaml'
+              example:
+                id: 1
+                userName: User
+                password: "*****"
+                accountType: 1
+    put:
+      tags:
+        - account
+      summary: Update an account
+      description: 指定されたIDのアカウント情報を更新します
+      parameters:
+        - name: id
+          in: path
+          description: 対象のアカウントID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: './components/schemas/Account.yaml'
+            example:
+              userName: User
+              password: 12345
+              accountType: 1
+      responses:
+        '200':
+          description: アカウントが正常に更新されました
+          content:
+            application/json:
+              schema:
+                $ref: './components/schemas/Account.yaml'
+              example:
+                id: 1
+                userName: User
+                password: "*****"
+                accountType: 1
+        '400':
+          description: Bad Request - 入力値が不正です
+          content:
+            application/json:
+              example:
+                errors:
+                  - field: userName
+                    message: ユーザー名は必須です
+                  - field: userName
+                    message: ユーザー名は255文字以内で入力してください
+                  - field: password
+                    message: パスワードは必須です
+                  - field: password
+                    message: パスワードは最低5桁以上の整数である必要があります
+                  - field: accountType
+                    message: アカウント種別は必須です
+                  - field: accountType
+                    message: アカウント種別は1か2の値を指定してください
+    delete:
+      tags:
+        - account
+      summary: Delete an account
+      description: 指定されたIDのアカウント情報を削除します
+      parameters:
+        - name: id
+          in: path
+          description: 対象のアカウントID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: アカウントが正常に削除されました

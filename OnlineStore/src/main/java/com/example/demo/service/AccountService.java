@@ -1,9 +1,17 @@
 package com.example.demo.service;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.Account;
+import com.example.demo.model.dto.AccountRequestPostDto;
+import com.example.demo.model.dto.AccountRequestPutDto;
+import com.example.demo.model.dto.AccountResponseDto;
+import com.example.demo.model.entity.AccountEntity;
 import com.example.demo.repository.AccountRepository;
 
 /** アカウントに関するビジネスロジックを提供するサービスクラス */
@@ -18,7 +26,79 @@ public class AccountService {
    * @param account 登録するアカウント情報
    * @return 登録されたアカウント情報
    */
-  public Account register(Account account) {
-    return accountRepository.save(account);
+  public AccountResponseDto register(AccountRequestPostDto dto) {
+    AccountEntity accountRequest = new AccountEntity();
+    BeanUtils.copyProperties(dto, accountRequest);
+    AccountEntity saved = accountRepository.save(accountRequest);
+    return ResponseTo(saved);
+  }
+
+  /**
+   * すべてのアカウント情報を取得
+   *
+   * @return アカウント情報のリスト
+   */
+  public List<AccountResponseDto> findAll() {
+    return accountRepository.findAll().stream().map(this::ResponseTo).collect(Collectors.toList());
+  }
+
+  /**
+   * 指定されたIDのアカウント情報を取得
+   *
+   * @param id 取得対象のアカウントID
+   * @return 該当するアカウント情報
+   */
+  public Optional<AccountResponseDto> findById(Integer id) {
+    return accountRepository.findById(id).map(this::ResponseTo);
+  }
+
+  /**
+   * Entity → DTO への変換メソッド
+   *
+   * @param account
+   * @return DTO
+   */
+  public AccountResponseDto ResponseTo(AccountEntity account) {
+    // TODO 別途Mapperクラスを検討する
+    AccountResponseDto dto = new AccountResponseDto();
+    BeanUtils.copyProperties(account, dto, "password");
+    return dto;
+  }
+
+  /**
+   * 指定されたIDのアカウント情報を更新
+   *
+   * @param id 更新対象のアカウントID
+   * @param updatedAccount 更新内容を含むアカウント情報
+   * @return 更新後のアカウント情報
+   */
+  public Optional<AccountResponseDto> update(Integer id, AccountRequestPutDto updatedAccount) {
+    return accountRepository
+        .findById(id)
+        .map(
+            account -> {
+              BeanUtils.copyProperties(updatedAccount, account);
+              AccountEntity savedAccount = accountRepository.save(account);
+              return ResponseTo(savedAccount);
+            });
+  }
+
+  /**
+   * 指定されたIDのアカウントが存在するか確認
+   *
+   * @param id 存在確認対象のアカウントID
+   * @return アカウントが存在すれば true、存在しなければ false
+   */
+  public boolean existsById(Integer id) {
+    return accountRepository.existsById(id);
+  }
+
+  /**
+   * 指定されたIDのアカウント情報を削除
+   *
+   * @param id 削除対象のアカウントID
+   */
+  public void delete(Integer id) {
+    accountRepository.deleteById(id);
   }
 }
