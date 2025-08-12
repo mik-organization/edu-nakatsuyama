@@ -30,7 +30,7 @@ public class AccountService {
     AccountEntity accountRequest = new AccountEntity();
     BeanUtils.copyProperties(dto, accountRequest);
     AccountEntity saved = accountRepository.save(accountRequest);
-    return toDto(saved);
+    return ResponseTo(saved);
   }
 
   /**
@@ -39,7 +39,7 @@ public class AccountService {
    * @return アカウント情報のリスト
    */
   public List<AccountResponseDto> findAll() {
-    return accountRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+    return accountRepository.findAll().stream().map(this::ResponseTo).collect(Collectors.toList());
   }
 
   /**
@@ -49,7 +49,7 @@ public class AccountService {
    * @return 該当するアカウント情報
    */
   public Optional<AccountResponseDto> findById(Integer id) {
-    return accountRepository.findById(id).map(this::toDto);
+    return accountRepository.findById(id).map(this::ResponseTo);
   }
 
   /**
@@ -58,7 +58,7 @@ public class AccountService {
    * @param account
    * @return DTO
    */
-  public AccountResponseDto toDto(AccountEntity account) {
+  public AccountResponseDto ResponseTo(AccountEntity account) {
     // TODO 別途Mapperクラスを検討する
     AccountResponseDto dto = new AccountResponseDto();
     BeanUtils.copyProperties(account, dto, "password");
@@ -79,7 +79,7 @@ public class AccountService {
             account -> {
               BeanUtils.copyProperties(updatedAccount, account);
               AccountEntity savedAccount = accountRepository.save(account);
-              return toDto(savedAccount);
+              return ResponseTo(savedAccount);
             });
   }
 
